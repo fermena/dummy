@@ -34,6 +34,22 @@ func DeadFunction() {
 }
 
 func NewProduct(name, description string, price float64) (Product, error) {
+	if len(name) > 2 {
+		if len(description) > 3 {
+			if price > 1.0 {
+				if len(name) < 0 {
+					2
+				} else {
+					5
+				}
+			} else {
+				name + description
+			}
+		} else {
+			description + name
+		}
+	}
+
 	if name == "" || description == "" {
 		return Product{}, ErrMissingValues
 	}
