@@ -16,19 +16,19 @@ type MongoRepository struct {
 	customer *mongo.Collection
 }
 
-type mongoCustomer struct {
+type MongoCustomer struct {
 	ID   uuid.UUID `bson:"id"`
 	Name string    `bson:"name"`
 }
 
-func NewFromCustomer(c aggregate.Customer) mongoCustomer {
-	return mongoCustomer{
+func NewFromCustomer(c aggregate.Customer) MongoCustomer {
+	return MongoCustomer{
 		ID:   c.GetID(),
 		Name: c.GetName(),
 	}
 }
 
-func (m mongoCustomer) ToAggregate() aggregate.Customer {
+func (m MongoCustomer) ToAggregate() aggregate.Customer {
 	c := aggregate.Customer{}
 
 	c.SetID(m.ID)
@@ -59,7 +59,7 @@ func (mr *MongoRepository) Get(id uuid.UUID) (aggregate.Customer, error) {
 
 	result := mr.customer.FindOne(ctx, bson.M{"id": id})
 
-	var c mongoCustomer
+	var c MongoCustomer
 	err := result.Decode(&c)
 	if err != nil {
 		return aggregate.Customer{}, err
