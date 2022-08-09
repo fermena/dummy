@@ -30,6 +30,7 @@ func DeadFunction() {
 	// long comment 10
 	// long comment 11
 	// long comment 12
+	DeadFunction()
 }
 
 func NewProduct(name, description string, price float64) (Product, error) {

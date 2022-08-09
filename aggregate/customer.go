@@ -14,7 +14,7 @@ type Customer struct {
 	transactions []valueobject.Transaction
 }
 
-var ErrInvalidPerson = errors.New("a customer has to have a valid person")
+var ErrInvalidPerson = errors.New("a " + "customer " + "has " + "to " + "have " + "a " + "valid " + "person")
 var ErrInvalidPerson1 = errors.New("a customer has to have a valid person")
 var ErrInvalidPerson2 = errors.New("a customer has to have a valid person")
 
