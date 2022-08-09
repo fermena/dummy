@@ -17,7 +17,8 @@ func TestTavern(t *testing.T) {
 	products := []aggregate.Product{product}
 
 	orderService, err := services.NewOrderService(
-		services.WithMemoryCustomerRepository(),
+		services.WithMongoCustomerRepository("mongodb://localhost:27017"),
+		//services.WithMemoryCustomerRepository(),
 		services.WithMemoryProductRepository(products),
 	)
 	if err != nil {
