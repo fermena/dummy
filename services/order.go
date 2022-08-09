@@ -13,8 +13,8 @@ import (
 )
 
 type OrderService struct {
-	customers customer.CustomerRepository
-	products  product.ProductRepository
+	Customers customer.CustomerRepository
+	Products  product.ProductRepository
 }
 
 type OrderConfiguration func(os *OrderService) error
@@ -30,14 +30,14 @@ func WithMemoryProductRepository(products []aggregate.Product) OrderConfiguratio
 			}
 		}
 
-		os.products = pr
+		os.Products = pr
 		return nil
 	}
 }
 
 func WithCustomerRepository(cr customer.CustomerRepository) OrderConfiguration {
 	return func(os *OrderService) error {
-		os.customers = cr
+		os.Customers = cr
 		return nil
 	}
 }
@@ -61,7 +61,7 @@ func NewOrderService(cfgs ...OrderConfiguration) (*OrderService, error) {
 }
 
 func (o *OrderService) CreateOrder(customerID uuid.UUID, productIDs []uuid.UUID) (float64, error) {
-	c, err := o.customers.Get(customerID)
+	c, err := o.Customers.Get(customerID)
 	if err != nil {
 		return 0, err
 	}
@@ -70,7 +70,7 @@ func (o *OrderService) CreateOrder(customerID uuid.UUID, productIDs []uuid.UUID)
 	var price float64
 
 	for _, id := range productIDs {
-		p, err := o.products.GetByID(id)
+		p, err := o.Products.GetByID(id)
 		if err != nil {
 			return 0, err
 		}

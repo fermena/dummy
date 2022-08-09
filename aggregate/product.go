@@ -16,6 +16,7 @@ type Product struct {
 }
 
 func NewProduct(name, description string, price float64) (Product, error) {
+
 	if name == "" || description == "" {
 		return Product{}, ErrMissingValues
 	}

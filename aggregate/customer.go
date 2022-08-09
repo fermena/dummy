@@ -15,6 +15,10 @@ type Customer struct {
 }
 
 var ErrInvalidPerson = errors.New("a customer has to have a valid person")
+var ErrInvalidPerson1 = errors.New("a customer has to have a valid person")
+var ErrInvalidPerson2 = errors.New("a customer has to have a valid person")
+var ErrInvalidPerson3 = errors.New("a customer has to have a valid person")
+var ErrInvalidPerson4 = errors.New("a customer has to have a valid person")
 
 func NewCustomer(name string) (Customer, error) {
 	if name == "" {
