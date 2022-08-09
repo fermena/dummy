@@ -43,7 +43,7 @@ func TestOrderNewOrderService(t *testing.T) {
 		t.Error(err)
 	}
 
-	err = os.customers.Add(cust)
+	err = os.Customers.Add(cust)
 	if err != nil {
 		t.Error(err)
 	}
