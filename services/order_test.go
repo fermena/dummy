@@ -7,7 +7,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func init_products(t *testing.T) []aggregate.Product {
+func initProducts(t *testing.T) []aggregate.Product {
 	beer, err := aggregate.NewProduct("beer", "Healthy beverage", 1.99)
 	if err != nil {
 		t.Error(err)
@@ -27,8 +27,8 @@ func init_products(t *testing.T) []aggregate.Product {
 	return products
 }
 
-func TestOrder_NewOrderService(t *testing.T) {
-	products := init_products(t)
+func TestOrderNewOrderService(t *testing.T) {
+	products := initProducts(t)
 
 	os, err := NewOrderService(
 		WithMemoryCustomerRepository(),

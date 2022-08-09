@@ -8,7 +8,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func TestMemory_GetCustomer(t *testing.T) {
+func TestMemoryGetCustomer(t *testing.T) {
 	type testCase struct {
 		name        string
 		id          uuid.UUID
@@ -52,7 +52,7 @@ func TestMemory_GetCustomer(t *testing.T) {
 
 }
 
-func TestMemory_addCustomer(t *testing.T) {
+func TestMemoryAddCustomer(t *testing.T) {
 	type testCase struct {
 		name        string
 		cust        string

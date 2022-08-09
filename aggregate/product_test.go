@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestProduct_NewProduct(t *testing.T) {
+func TestProductNewProduct(t *testing.T) {
 	type testCase struct {
 		test        string
 		name        string

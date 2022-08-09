@@ -8,7 +8,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func TestMemoryProductRepository_Add(t *testing.T) {
+func TestMemoryProductRepositoryAdd(t *testing.T) {
 	repo := New()
 
 	product, err := aggregate.NewProduct("Beer", "Good for you're health", 1.99)
@@ -22,7 +22,7 @@ func TestMemoryProductRepository_Add(t *testing.T) {
 	}
 }
 
-func TestMemoryProductRepository_Get(t *testing.T) {
+func TestMemoryProductRepositoryGet(t *testing.T) {
 	repo := New()
 	existingProd, err := aggregate.NewProduct("Beer", "Good for you're health", 1.99)
 	if err != nil {
@@ -63,7 +63,7 @@ func TestMemoryProductRepository_Get(t *testing.T) {
 	}
 }
 
-func TestMemoryProductRepository_Delete(t *testing.T) {
+func TestMemoryProductRepositoryDelete(t *testing.T) {
 	repo := New()
 
 	existingProd, err := aggregate.NewProduct("beer", "good for you're health", 1.99)
