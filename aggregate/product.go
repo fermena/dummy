@@ -3,6 +3,7 @@ package aggregate
 import (
 	"dummy/entity"
 	"errors"
+	"fmt"
 
 	"github.com/google/uuid"
 )
@@ -34,19 +35,20 @@ func DeadFunction() {
 }
 
 func NewProduct(name, description string, price float64) (Product, error) {
+
 	if len(name) > 2 {
 		if len(description) > 3 {
 			if price > 1.0 {
 				if len(name) < 0 {
-					2
+					fmt.Println(2)
 				} else {
-					5
+					fmt.Println(3)
 				}
 			} else {
-				name + description
+				fmt.Println(1)
 			}
 		} else {
-			description + name
+			fmt.Println(4)
 		}
 	}
 
