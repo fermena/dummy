@@ -15,6 +15,23 @@ type Product struct {
 	quantity int
 }
 
+func deadFunction() {
+	// do nothing
+	// long comment 0
+	// long comment 1
+	// long comment 2
+	// long comment 3
+	// long comment 4
+	// long comment 5
+	// long comment 6
+	// long comment 7
+	// long comment 8
+	// long comment 9
+	// long comment 10
+	// long comment 11
+	// long comment 12
+}
+
 func NewProduct(name, description string, price float64) (Product, error) {
 	if name == "" || description == "" {
 		return Product{}, ErrMissingValues

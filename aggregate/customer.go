@@ -18,10 +18,6 @@ var ErrInvalidPerson = errors.New("a customer has to have a valid person")
 var ErrInvalidPerson1 = errors.New("a customer has to have a valid person")
 var ErrInvalidPerson2 = errors.New("a customer has to have a valid person")
 
-func deadFunction() {
-	// do nothing
-}
-
 func NewCustomer(name string) (Customer, error) {
 	if name == "" {
 		return Customer{}, ErrInvalidPerson
