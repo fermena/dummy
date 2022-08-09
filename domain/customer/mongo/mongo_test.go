@@ -1,6 +1,7 @@
 package mongo_test
 
 import (
+	"context"
 	"dummy/aggregate"
 	"dummy/domain/customer/mongo"
 	"testing"
@@ -32,4 +33,44 @@ func TestMongoToAggregate(t *testing.T) {
 	if got != expect {
 		t.Errorf("got %v expect %v", got, expect)
 	}
+}
+
+func TestMongoNew(t *testing.T) {
+	type testCase struct {
+		name             string
+		connectionString string
+		expectedErr      error
+		mrNil            bool
+	}
+
+	testCases := []testCase{
+		{
+			name:             "Test MongoRepository not nil",
+			connectionString: "mongodb://mongo",
+			expectedErr:      nil,
+			mrNil:            false,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			ctx := context.Background()
+
+			mr, err := mongo.New(ctx, tc.connectionString)
+			if err != tc.expectedErr {
+				t.Error(err)
+			}
+
+			if tc.mrNil && mr != nil {
+				t.Errorf("Got %v expect nil", mr)
+			}
+
+			if !tc.mrNil && mr == nil {
+				t.Errorf("Got %v expect MongoRepository", mr)
+
+			}
+
+		})
+	}
+
 }
