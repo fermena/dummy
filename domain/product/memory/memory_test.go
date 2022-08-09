@@ -87,3 +87,43 @@ func TestMemoryProductRepositoryDelete(t *testing.T) {
 		t.Errorf("Expected 0 products, got %v", len(repo.products))
 	}
 }
+
+func TestMemoryProductRepositoryUpdate(t *testing.T) {
+	prod, _ := aggregate.NewProduct("Prod1", "desc", 1.00)
+
+	type testCase struct {
+		name        string
+		updateProd  aggregate.Product
+		products    map[uuid.UUID]aggregate.Product
+		expectedErr error
+	}
+
+	testCases := []testCase{
+		{
+			name:        "Test update without error",
+			updateProd:  prod,
+			products:    map[uuid.UUID]aggregate.Product{prod.GetID(): prod},
+			expectedErr: nil,
+		},
+		{
+			name:        "Test update with error",
+			updateProd:  prod,
+			products:    map[uuid.UUID]aggregate.Product{},
+			expectedErr: product.ErrProductNotFound,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			repo := New()
+
+			repo.products = tc.products
+
+			err := repo.Update(tc.updateProd)
+
+			if err != tc.expectedErr {
+				t.Error(err)
+			}
+		})
+	}
+}
