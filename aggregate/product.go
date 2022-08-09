@@ -15,7 +15,7 @@ type Product struct {
 	quantity int
 }
 
-func deadFunction() {
+func DeadFunction() {
 	// do nothing
 	// long comment 0
 	// long comment 1
