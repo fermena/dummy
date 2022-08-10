@@ -74,3 +74,21 @@ func TestMongoNew(t *testing.T) {
 	}
 
 }
+
+func TestMongoAdd(t *testing.T) {
+	customer, err := aggregate.NewCustomer("Filete")
+	if err != nil {
+		t.Error(err)
+	}
+
+	mr, err := mongo.New(context.Background(), "mongodb://localhost")
+	if err != nil {
+		t.Error(err)
+	}
+
+	err = mr.Add(customer)
+
+	if err != nil {
+		t.Error(err)
+	}
+}
