@@ -81,7 +81,7 @@ func TestMongoAdd(t *testing.T) {
 		t.Error(err)
 	}
 
-	mr, err := mongo.New(context.Background(), "mongodb://localhost")
+	mr, err := mongo.New(context.Background(), "mongodb://mongo")
 	if err != nil {
 		t.Error(err)
 	}
@@ -91,4 +91,33 @@ func TestMongoAdd(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+}
+
+func TestMongoGet(t *testing.T) {
+	mr, err := mongo.New(context.Background(), "mongodb://mongo")
+	if err != nil {
+		t.Error(err)
+	}
+	customer, err := aggregate.NewCustomer("Filete")
+	if err != nil {
+		t.Error(err)
+	}
+
+	err = mr.Add(customer)
+	if err != nil {
+		t.Error(err)
+	}
+
+	outputCustomer, err := mr.Get(customer.GetID())
+	if err != nil {
+		t.Error(err)
+	}
+
+	got := outputCustomer.GetID()
+	expect := customer.GetID()
+
+	if got != expect {
+		t.Errorf("Got %v expect %v", got, expect)
+	}
+
 }
