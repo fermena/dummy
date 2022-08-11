@@ -1,9 +1,11 @@
 package services
 
 import (
+	"context"
 	"dummy/aggregate"
 	"dummy/domain/customer"
 	"dummy/domain/customer/memory"
+	"dummy/domain/customer/mongo"
 	"dummy/domain/product"
 	"log"
 
@@ -19,6 +21,16 @@ type OrderService struct {
 
 type OrderConfiguration func(os *OrderService) error
 
+func WithMongoCustomerRepository(connectionString string) OrderConfiguration {
+	return func(os *OrderService) error {
+		cr, err := mongo.New(context.Background(), connectionString)
+		if err != nil {
+			return err
+		}
+		os.Customers = cr
+		return nil
+	}
+}
 func WithMemoryProductRepository(products []aggregate.Product) OrderConfiguration {
 	return func(os *OrderService) error {
 		pr := prodmemory.New()
