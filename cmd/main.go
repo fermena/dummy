@@ -63,7 +63,6 @@ func hostnameHandler(w http.ResponseWriter, r *http.Request) {
 
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		cmd.CombinedOutput()
 		log.Fatal(err.Error())
 	}
 
