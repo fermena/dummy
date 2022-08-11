@@ -9,7 +9,7 @@ import (
 )
 
 func TestTavern(t *testing.T) {
-	product, err := aggregate.NewProduct("Prod1", "desc1", 1.99)
+	product, err := aggregate.NewProduct("Prod1", "desc1", 010)
 	if err != nil {
 		t.Error(err)
 	}
