@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"text/template"
 )
 
 func insecureRequest() {
@@ -37,7 +38,21 @@ func indexHandler(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintf(w, "insecure request sent")
 }
 
+func xssHandler(w http.ResponseWriter, r *http.Request) {
+	tmpl, _ := template.New("foo").Parse(`{{define "T"}}
+	<html>
+		<body>
+			<p> Hello, {{.}}!{{end}} </p>
+		</body>
+	</html>
+	`)
+	tmpl.ExecuteTemplate(w, "T", r.URL.Query().Get("name"))
+
+}
+
 func main() {
+
 	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/xss", xssHandler)
 	http.ListenAndServe("0.0.0.0:8080", nil)
 }
