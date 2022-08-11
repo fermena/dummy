@@ -3,6 +3,7 @@ package mongo_test
 import (
 	"context"
 	"dummy/aggregate"
+	"dummy/configs"
 	"dummy/domain/customer/mongo"
 	"testing"
 )
@@ -46,7 +47,7 @@ func TestMongoNew(t *testing.T) {
 	testCases := []testCase{
 		{
 			name:             "Test MongoRepository not nil",
-			connectionString: "mongodb://mongo",
+			connectionString: configs.MongoConfig["MONGO_URL"],
 			expectedErr:      nil,
 			mrNil:            false,
 		},
@@ -81,7 +82,7 @@ func TestMongoAdd(t *testing.T) {
 		t.Error(err)
 	}
 
-	mr, err := mongo.New(context.Background(), "mongodb://mongo")
+	mr, err := mongo.New(context.Background(), configs.MongoConfig["MONGO_URL"])
 	if err != nil {
 		t.Error(err)
 	}
@@ -94,7 +95,8 @@ func TestMongoAdd(t *testing.T) {
 }
 
 func TestMongoGet(t *testing.T) {
-	mr, err := mongo.New(context.Background(), "mongodb://mongo")
+
+	mr, err := mongo.New(context.Background(), configs.MongoConfig["MONGO_URL"])
 	if err != nil {
 		t.Error(err)
 	}
