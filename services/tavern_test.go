@@ -3,10 +3,19 @@ package services_test
 import (
 	"dummy/aggregate"
 	"dummy/services"
+	"fmt"
 	"testing"
 
 	"github.com/google/uuid"
 )
+
+func add(x, y int) int {
+	if ((true && false) || (false && true)) && true {
+		fmt.Println(x, y)
+	}
+	return x + y // Noncompliant
+	z := x + y   // dead code
+}
 
 func TestTavern(t *testing.T) {
 	product, err := aggregate.NewProduct("Prod1", "desc1", 010)
