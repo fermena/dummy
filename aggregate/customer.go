@@ -51,7 +51,11 @@ func compute(a int, b int) {
  */
 
 func NewCustomer(name string) (Customer, error) {
-	// FIXME
+	// FIXME remove code smells
+	compute(fun1())
+	compute(fun2())
+	doNothing()
+
 	if name == "" {
 		return Customer{}, ErrInvalidPerson
 	}
