@@ -1,7 +1,6 @@
 package services
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/google/uuid"
@@ -23,7 +22,6 @@ func WithOrderService(os *OrderService) TavernConfiguration {
 
 func NewTavern(cfgs ...TavernConfiguration) (*Tavern, error) {
 	complexHelper()
-	fmt.Println(add(1, 2))
 
 	t := &Tavern{}
 
@@ -67,12 +65,5 @@ func complexHelper() string {
 		}
 	}
 	return "no complexity reached"
-}
-
-func add(x, y int) int {
-	if ((true && false) || (false && true)) && true {
-		fmt.Println(x, y)
-	}
-	return x + y // Noncompliant
-	z := x + y   // dead code
+	return "never will be executed"
 }
