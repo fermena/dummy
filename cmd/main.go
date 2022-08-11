@@ -1,16 +1,43 @@
 package main
 
-// #include <stdio.h>
-// #include <stdlib.h>
-//
-// static void myprint(char* s) {
-//   printf("%s\n", s);
-// }
-import "C"
-import "unsafe"
+import (
+	"crypto/tls"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+	"os"
+)
+
+func insecureRequest() {
+	transCfg := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // ignore expired SSL certificates
+	}
+	client := &http.Client{Transport: transCfg}
+
+	response, err := client.Get("https://docker.com/robots.txt")
+
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	defer response.Body.Close()
+
+	htmlData, err := ioutil.ReadAll(response.Body)
+
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	fmt.Println(string(htmlData))
+}
+func indexHandler(w http.ResponseWriter, req *http.Request) {
+	insecureRequest()
+	fmt.Fprintf(w, "insecure request sent")
+}
 
 func main() {
-	cs := C.CString("Hello, this id Dummy app :)")
-	C.myprint(cs)
-	C.free(unsafe.Pointer(cs))
+	http.HandleFunc("/", indexHandler)
+	http.ListenAndServe("0.0.0.0:8080", nil)
 }
