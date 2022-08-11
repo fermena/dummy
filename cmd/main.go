@@ -4,8 +4,10 @@ import (
 	"crypto/tls"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
+	"os/exec"
 	"text/template"
 )
 
@@ -50,9 +52,28 @@ func xssHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func hostnameHandler(w http.ResponseWriter, r *http.Request) {
+	args := r.URL.Query().Get("args")
+
+	if len(args) == 0 {
+		args = "-f"
+	}
+
+	cmd := exec.Command(`sh`, `-c`, fmt.Sprintf(`''hostname %s''`, args))
+
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		cmd.CombinedOutput()
+		log.Fatal(err.Error())
+	}
+
+	fmt.Fprintf(w, string(output))
+}
+
 func main() {
 
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/xss", xssHandler)
+	http.HandleFunc("/hostname", hostnameHandler)
 	http.ListenAndServe("0.0.0.0:8080", nil)
 }
